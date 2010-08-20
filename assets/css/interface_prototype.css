@@ -1,0 +1,95 @@
+body {
+  overflow-x: hidden;
+  -webkit-user-select: none;
+  -webkit-text-size-adjust: none;
+}
+
+.hide{
+	display:none !important;
+}
+
+#interface_prototype .hide{
+	display:none !important;
+}
+
+#interface_prototype .navigation,
+#interface_prototype .templates .orientation_portrait,
+#interface_prototype .templates .orientation_landscape{
+	display:none;
+}
+
+/*Make elements visible depending on device and orientation*/
+#interface_prototype.portrait .templates .orientation_portrait,
+#interface_prototype.landscape .templates .orientation_landscape,
+
+#interface_prototype.desktop_landscape .templates .orientation_landscape,
+#interface_prototype.desktop_portrait .templates .orientation_portrait,
+
+#interface_prototype.desktop_landscape .navigation,
+#interface_prototype.desktop_portrait .navigation{
+	display:block;
+}
+
+/*Display ipad container if we're on a desktop looking at ipad*/
+#interface_prototype.desktop_landscape .templates .device_ipad .orientation_landscape{
+	background:url("../images/ipad-landscape.png") no-repeat scroll left top transparent;
+	height:882px;
+	padding:115px 0 0 125px;
+	width:1151px;
+	margin:0 auto;
+}
+/*Display portrait container if we're looking at portrait, or if landscape isn't available*/
+#interface_prototype.desktop_portrait .templates .device_ipad .orientation_portrait,
+#interface_prototype.desktop_portrait .templates .device_ipad .orientation_default,
+#interface_prototype.desktop_landscape .templates .device_ipad .orientation_default{
+	background:url("../images/ipad-portrait.png") no-repeat scroll left top transparent;
+	height:1151px;
+	margin:0 auto;
+	padding:126px 0 0 115px;
+	width:882px;
+}
+
+/*Display iphone container if we're on a desktop looking at iphone*/
+#interface_prototype.desktop_landscape .templates .device_iphone .orientation_landscape{
+	background:url("../images/iphone-landscape.png") no-repeat scroll left top transparent;
+	height:353px;
+	padding:36px 0 0 121px;
+	width:598px;
+	margin:0 auto;
+}
+#interface_prototype.desktop_portrait .templates .device_iphone .orientation_portrait,
+#interface_prototype.desktop_portrait .templates .device_iphone .orientation_default,
+#interface_prototype.desktop_landscape .templates .device_iphone .orientation_default{
+	background:url("../images/iphone-portrait.png") no-repeat scroll left top transparent;
+	height:598px;
+	margin:0 auto;
+	padding:121px 0 0 36px;
+	width:353px;
+}
+
+#interface_prototype .navigation{
+	background:none repeat scroll 0 0 #EEEEEE;
+	border:1px solid black;
+	font-family:arial;
+	margin:10px;
+	padding:10px;
+	text-align:center;
+}
+	#interface_prototype .navigation div{
+		display:inline;
+		margin:0 4px;
+	}
+	#interface_prototype .navigation div a{
+		color:black;
+		text-decoration:none;
+	}
+	#interface_prototype .navigation div a:hover{
+		text-decoration:underline;
+	}
+
+#interface_prototype .navigation .select_orientation{
+	
+}
+#interface_prototype .navigation .select_orientation a{
+	
+}

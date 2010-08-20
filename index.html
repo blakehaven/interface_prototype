@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>iPhone and iPad App Prototyping</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  
+  <!--APPLE STUFF-->
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="./assets/images/icon.png" />
+  
+  <!--STYLES-->
+  <link rel="stylesheet" href="./assets/css/base.css" />
+  <link rel="stylesheet" href="./assets/css/interface_prototype.css" />
+  
+  <!--JAVASCRIPT-->
+  <script type="text/javascript" src="./assets/js/jquery.js"></script>
+  <script type="text/javascript" src="./assets/js/jquery.console.log.js"></script>
+  <script type="text/javascript" src="./assets/js/jquery.interface_prototype.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $('#interface_prototype').interfacePrototype();
+   });
+  </script>
+</head>
+<body>
+  <div id="interface_prototype">
+    <div class="navigation">
+      <div class="select_device">
+        <a href="device=ipad">iPad</a>
+        <a href="device=iphone">iPhone</a>
+        <a href="clear_cache=true">Clear Cache</a>
+      </div>
+      <div class="select_orientation">
+        <a href="desktop_landscape" style="display:none;">Landscape</a>
+        <a href="desktop_portrait">Portrait</a>
+      </div>
+    </div>
+	  <div class="templates">
+	  </div>
+  </div>
+</body>
+</html>
