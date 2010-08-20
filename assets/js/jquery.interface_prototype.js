@@ -51,8 +51,9 @@ jQuery(function ($) {
 
 		this.get_templates = function(params){
 			//Additional params?
+			var get_device = '';
 			if (params)
-				var get_device = '?'+params;
+				get_device = '?'+params;
 			
 			//Get the device template
 			$.get(options.path_php + get_device, function(data){

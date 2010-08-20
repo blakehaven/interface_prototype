@@ -1,0 +1,44 @@
+Interface Prototpye is a jquery plugin that takes a Hotspot linked PNG and generates an interactive clickable design concept. It is intended to be used for demoing iPad and iPhone applications.
+
+Demo
+
+If you visit this on a desktop, you will be able to select between viewing the iPad and iPhone mockups.
+
+If you visit it on an iPad or iPhone, you will be served the respective mockups, and the concept will autorotate to match your devices orientation.
+
+http://sandbox.indusblue.com/demo/interface_prototype/
+
+
+
+Basic Instructions
+
+1. Import your design concepts into fireworks. Place each design on an individual Fireworks page.
+
+2. Use the Hotspot Tool to link together your pages as desired; links are assigned in the bottom toolbar.
+
+3. Select File > Export, and then specify 'Export as a Dreamweaver Library'
+
+4. If you are exporting an iPad demo, place it in /library/ipad/. If iphone, place it in /library/iphone/
+
+4. Visit index.html. The library files will be built and cached as an html file for future quick viewing.
+
+
+What It Does
+
+Device Detection
+
+This plugin is bundled with device detection. If you visit this plugin from an iPad, it will look for /library/ipad/ and attempt to serve an iPad specific set of mockups.
+
+If you visit the plugin from an iPhone, it will attempt to serve /library/iphone/
+
+If you visit the plugin from a desktop client, it will serve /library/ipad/, wrap it in an iPad container, and give you a button for rotating the view.
+
+
+Device Orientation
+
+If you visit the plugin on an iPad or iPhone, it will recognize the device, and automatically rotate the view to match the orientation of the device.
+
+
+Download
+
+http://github.com/blakehaven/interface_prototype
