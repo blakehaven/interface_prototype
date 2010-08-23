@@ -3,7 +3,7 @@ jQuery(function ($) {
 	  
 		var self = this, options =  $.extend({
 			path_php: 'includes/interface_prototype.php',
-			select_device: '.navigation .select_device',
+			ajax_call: '.navigation .ajax_call',
 			select_orientation: '.navigation .select_orientation',
 			templates: '.templates'
 		}, opt);
@@ -32,7 +32,7 @@ jQuery(function ($) {
 			window.onorientationchange=self.detect_orientation();
 			
 			//When clicked display this device
-			$(T('select_device', 'a')).click(function(){
+			$(T('ajax_call', 'a')).click(function(){
 				params = $(this).attr('href');
 				self.get_templates(params);
 				return false;
@@ -72,9 +72,9 @@ jQuery(function ($) {
 				//Display clicked page
 				divid = 'lp-' + $(this).attr('href');
 				
-				var alternatediv = (/-landscape/.test(divid)) ?
-					divid.replace("-landscape", "-portrait") :
-					divid.replace("-portrait", "-landscape");
+				var alternatediv = (/landscape/.test(divid)) ?
+					divid.replace("landscape", "portrait") :
+					divid.replace("portrait", "landscape");
 				
 				$('#'+alternatediv).removeClass('hide');
 				$('#'+divid).removeClass('hide');

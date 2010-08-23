@@ -2,15 +2,14 @@ Interface Prototpye is a jquery plugin that takes a Hotspot linked PNG and gener
 
 Demo
 
-If you visit this on a desktop, you will be able to select between viewing the iPad and iPhone mockups.
-
-If you visit it on an iPad or iPhone, you will be served the respective mockups, and the concept will autorotate to match your devices orientation.
-
 http://sandbox.indusblue.com/demo/interface_prototype/
 
+If you visit this page on a desktop and you will be able to choose between all available devices and orientations.
+
+If you visit it on an iPad or iPhone, you will be served the device's respective mockup, and the concept will auto-rotate to match your device's orientation.
 
 
-Basic Instructions
+Instructions
 
 1. Import your design concepts into fireworks. Place each design on an individual Fireworks page.
 
@@ -23,7 +22,7 @@ Basic Instructions
 4. Visit index.html. The library files will be built and cached as an html file for future quick viewing.
 
 
-What It Does
+Functionality
 
 Device Detection
 

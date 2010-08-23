@@ -1,39 +1,33 @@
 <?php
-include('device_detect.php');
 
-//Specific device requested?
-$device = (isset($_GET['device']))?
-	$_GET['device'] :
-	mobile_device_detect();
-	
-//Clear cache requested?
-$clear_cache = (isset($_GET['clear_cache']))?
-	$_GET['clear_cache'] :
-	false;
-	
-$prototype = new Interface_Prototype($device, $clear_cache);
+$prototype = new Interface_Prototype();
 
 if (!$prototype->get_cache())
-{
 	$prototype->build_cache();
-}
+	
 $prototype->display();
-
 
 class Interface_Prototype {
 	
-	private $cache, $device, $clear_cache, $library = 'library',
-		$no_results = '<div class="no_device">No template files were found for this device.</div>';	
-	
-	function __construct($device, $clear_cache)
+	private $cache, $library='library', $O = array(
+		'device'=>false,
+		'clear_cache'=>false
+	);
+		
+	function __construct($options=false)
 	{
-		$this->device = $device;
-		$this->clear_cache = $clear_cache;
+		//Write options set by ajax
+		$this->set_options($this->get_options());
+		//Write options passed by php
+		$this->set_options($options);
 		
+		//Do detection if a device wasn't passed in options
+		if (!$this->O['device'])
+			$this->O['device'] = $this->detect_device();
+				
 		//Default to ipad on desktop client
-		if ($this->device == 'desktop')
-			$this->device = 'ipad';
-		
+		if ($this->O['device'] == 'desktop')
+			$this->O['device'] = 'ipad';
 	}
 	
 	//Return folder path with depth
@@ -56,13 +50,33 @@ class Interface_Prototype {
 		}
 	}
 	
+	public function detect_device()
+	{
+		$user_agent = $_SERVER['HTTP_USER_AGENT'];
+		switch(true)
+		{
+			case (preg_match('/ipad/i', $user_agent));
+			  $status = 'ipad';
+			break;
+			
+			case (preg_match('/ipod/i', $user_agent)||preg_match('/iphone/i',$user_agent));
+			  $status = 'iphone';
+			break;
+
+			default;
+			  $status = 'desktop';
+			break;
+		}
+		return $status;
+	}
+	
 	//Is there a saved file for this device?
 	public function get_cache()
 	{
-		if ($this->clear_cache)
+		if ($this->O['clear_cache'])
 			return false;
-			
-		$device = $this->device;
+		
+		$device = $this->O['device'];
 		$path = $this->P($device, 1);
 		$path .= "$device.html";
 		
@@ -77,7 +91,7 @@ class Interface_Prototype {
 	public function display($echo = true)
 	{
 		$output = (empty($this->cache)) ?
-			$this->no_results :
+			$this->template_404() :
 			$this->cache;
 		
 		if ($echo){
@@ -90,7 +104,7 @@ class Interface_Prototype {
 	//Get the library files and compile into a single html file
 	public function build_cache()
 	{
-		$device = $this->device;
+		$device = $this->O['device'];
 		$markup = array();
 		$path = $this->P($device, 1);
 		if (!file_exists($path))
@@ -125,8 +139,7 @@ class Interface_Prototype {
 			foreach ($names as $id=>$filename)
 			{
 				$template = $path . $filename;
-			
-				//start div with filename
+				
 				$html = file_get_contents ($template);
 			
 				//remove metatags from .lbi files
@@ -147,12 +160,13 @@ class Interface_Prototype {
 
 	private function create_cache($markup)
 	{
+		$device = $this->O['device'];
 		$markup = $this->construct_markup($markup);
 		
 		if (!$markup)
 			return false;
 
-		$path = ($this->P($this->device, 1) ) . "$this->device.html";
+		$path = ($this->P($device, 1) ) . "$device.html";
 				
 		$fp = fopen($path, 'w');
 		fwrite($fp, $markup);
@@ -167,7 +181,8 @@ class Interface_Prototype {
 		if (empty($markup))
 			return false;
 		
-		$output = "<div class='device_$this->device'>";
+		$device = $this->O['device'];
+		$output = "<div class='device_$device'>";
 		foreach ($markup as $orientation => $templates)
 		{
 			$output .= "<div class='orientation_$orientation'>";
@@ -175,13 +190,50 @@ class Interface_Prototype {
 			{
 				$if_index = (preg_match('/[I|i]ndex/', $id)) ? '' : 'hide';
 				$output .= "<div id='lp-$id' class='$if_index page'>";
-			  $output .= $markup;
-			  $output .= "</div>";
+				$output .= $markup;
+				$output .= "</div>";
 			}
 			$output .= "</div>";
 		}
 		$output .= "</div>";
 		return $output;
+	}
+	
+	private function template_404()
+	{
+		$device = $this->O['device'];
+		return <<<OUTPUT
+			<div class="no_device">
+				No template files were found for the device: $device.
+			</div>
+OUTPUT;
+	}
+	
+	private function get_options()
+	{
+		$valid = array();
+		foreach($_GET as $key=>$value)
+		{
+			if (isset($this->O[$key]))
+			{
+				$valid[$key] = $value;
+			}
+		}
+		return $valid;
+	}
+	
+	private function set_options($options)
+	{
+		if(!isset($options) || !is_array($options))
+			return false;
+			
+		foreach($options as $key=>$value)
+		{
+			if(!empty($value) && !is_array($value))
+			{
+				$this->O[$key] = $value;
+			}
+		}
 	}
 }
 ?>

@@ -11,7 +11,15 @@ body {
 #interface_prototype .hide{
 	display:none !important;
 }
-
+.debug{
+	background:red;
+	padding:10px;
+	text-align:center;
+	color:white;
+}
+#interface_prototype .select_device{
+	color:#777;
+}
 #interface_prototype .navigation,
 #interface_prototype .templates .orientation_portrait,
 #interface_prototype .templates .orientation_landscape{
